@@ -1,0 +1,34 @@
+{
+  "name": "ironpipe",
+  "version": "0.0.1",
+  "author": "ci7lus <7887955+ci7lus@users.noreply.github.com>",
+  "description": "TypeScript typed helpers for pipedream.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ci7lus/ironpipe.git"
+  },
+  "bugs": "https://github.com/ci7lus/ironpipe/issues",
+  "homepage": "https://github.com/ci7lus/ironpipe",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "package.json",
+    "lib/**/*"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "pipedream",
+    "typescript"
+  ],
+  "scripts": {
+    "prebuild": "rm -rf lib",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "prettier --check \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.27",
+    "prettier": "^2.0.5",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {}
+}
