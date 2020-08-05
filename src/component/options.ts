@@ -1,6 +1,7 @@
 import { MethodOptions } from "./methods"
 import { ExtractPropTypes, ComponentPropsOptions } from "./props"
 import { ObjectLiteral } from "../types"
+import { ArgEventTypes } from "./pipedream"
 
 export type ComponentOptions<
   PropsOptions = ComponentPropsOptions,
@@ -16,13 +17,14 @@ type ComponentInstance = {
   version: string
   description?: string
   dedupe?: string
-  run: (event?: any) => any | Function
+  run: (event?: ArgEventTypes | any) => any
+  hooks?: { [key: string]: Function }
 }
 
 type ComponentThis<Props, Methods> = ThisType<
   {
     $props: Props
-    $emit: (data: ObjectLiteral, data2?: ObjectLiteral) => void
+    $emit: (data: ObjectLiteral, metadata?: ObjectLiteral) => void
   } & Props &
     Methods &
     ObjectLiteral

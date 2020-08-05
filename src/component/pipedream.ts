@@ -2,24 +2,42 @@ import { ObjectLiteral } from "../types"
 
 // https://github.com/PipedreamHQ/pipedream/blob/master/COMPONENT-API.md
 
+export type ArgEventTypes = ArgEventBase | ArgEventInterval | ArgEventHttp
+
+export type ArgEventBase = { timestamp: number }
+export type ArgEventInterval = ArgEventBase & { interval_seconds: number }
+export type ArgEventHttp = {
+  method: "POST" | "GET" | String
+  path: string
+  query: ObjectLiteral
+  headers: ObjectLiteral
+  bodyRaw: string
+  body: any
+}
+
 export type PipedreamPropTypes =
   | "$.interface.timer"
   | "$.interface.http"
   | "$.service.db"
 
-export type PropReturnDInterfaceTimer = {}
-
-export type PropDefaultDInterfaceTimer = {
-  intervalSeconds: number
+export type PropReturnDInterfaceTimer = {
+  type: "$.interface.timer"
 }
+
+export type PropDefaultDInterfaceTimer =
+  | {
+      intervalSeconds: number
+    }
+  | { cron: string }
 
 export type PropReturnDInterfaceHttp = {
   respond(options: {
-    status: number
-    headers: ObjectLiteral
-    body: string | object | Buffer
+    status?: number
+    headers?: ObjectLiteral
+    body?: any
     [key: string]: any
   }): void
+  endpoint: string
 }
 
 export type PropReturnDServiceDB = {

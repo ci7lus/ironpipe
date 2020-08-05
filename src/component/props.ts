@@ -6,18 +6,20 @@ import {
   PropDefaultDInterfaceTimer,
 } from "./pipedream"
 
-type PropTypes = "string" | "number" | PipedreamPropTypes
+type PropTypes = "string" | "number" | "boolean" | PipedreamPropTypes
 
 type Prop<T> = PropOptions<T> | PropTypes
 
-type PropTypesDefault = PropDefaultDInterfaceTimer | { [key: string]: any }
+type PropTypesDefault = PropDefaultDInterfaceTimer
 
 type PropOptions<T = any> = {
   type?: PropTypes | String
   label?: string
   description?: string
-  default?: PropTypesDefault | null
-  propDefinition?: T[]
+  default?: PropTypesDefault | { [key: string]: any } | string | null
+  propDefinition?: [any, string]
+  optional?: boolean
+  options?: any[]
 }
 
 type ConvertPropTypes<T> = T extends null
@@ -26,6 +28,8 @@ type ConvertPropTypes<T> = T extends null
   ? string
   : T extends { type: "number" } | "number"
   ? number
+  : T extends { type: "boolean" } | "boolean"
+  ? boolean
   : T extends { type: "$.interface.timer" } | "$.interface.timer"
   ? PropReturnDInterfaceTimer
   : T extends { type: "$.interface.http" } | "$.interface.http"
@@ -34,8 +38,12 @@ type ConvertPropTypes<T> = T extends null
   ? PropReturnDServiceDB
   : any
 
+type PropOptionalCheck<T> = T extends { optional: true }
+  ? ConvertPropTypes<T> | undefined
+  : ConvertPropTypes<T>
+
 export type ExtractPropTypes<P> = P extends object
-  ? { [K in keyof P]: ConvertPropTypes<P[K]> }
+  ? { [K in keyof P]: PropOptionalCheck<P[K]> }
   : { [K in string]: any }
 
 export type ComponentPropsOptions<P = Record<string, unknown>> =
