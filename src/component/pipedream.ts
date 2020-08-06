@@ -1,4 +1,4 @@
-import { ObjectLiteral } from "../types"
+import { ObjectLiteral, string2 } from "../types"
 
 // https://github.com/PipedreamHQ/pipedream/blob/master/COMPONENT-API.md
 
@@ -7,7 +7,7 @@ export type ArgEventTypes = ArgEventBase | ArgEventInterval | ArgEventHttp
 export type ArgEventBase = { timestamp: number }
 export type ArgEventInterval = ArgEventBase & { interval_seconds: number }
 export type ArgEventHttp = {
-  method: "POST" | "GET" | String
+  method: "POST" | "GET" | string2
   path: string
   query: ObjectLiteral
   headers: ObjectLiteral

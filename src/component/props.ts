@@ -5,6 +5,7 @@ import {
   PropReturnDServiceDB,
   PropDefaultDInterfaceTimer,
 } from "./pipedream"
+import { string2 } from "../types"
 
 type PropTypes = "string" | "number" | "boolean" | PipedreamPropTypes
 
@@ -13,7 +14,7 @@ type Prop<T> = PropOptions<T> | PropTypes
 type PropTypesDefault = PropDefaultDInterfaceTimer
 
 type PropOptions<T = any> = {
-  type?: PropTypes | String
+  type?: PropTypes | string2
   label?: string
   description?: string
   default?: PropTypesDefault | { [key: string]: any } | string | null
