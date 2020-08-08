@@ -1,6 +1,6 @@
 {
   "name": "ironpipe",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "ci7lus <7887955+ci7lus@users.noreply.github.com>",
   "description": "TypeScript typed helpers for pipedream.",
   "repository": {

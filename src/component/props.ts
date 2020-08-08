@@ -9,7 +9,7 @@ import { string2 } from "../types"
 
 type PropTypes = "string" | "number" | "boolean" | PipedreamPropTypes
 
-type Prop<T> = PropOptions<T> | PropTypes
+type Prop<T> = PropOptions<T> | PropTypes | string2
 
 type PropTypesDefault = PropDefaultDInterfaceTimer
 
@@ -20,7 +20,7 @@ type PropOptions<T = any> = {
   default?: PropTypesDefault | { [key: string]: any } | string | null
   propDefinition?: [any, string]
   optional?: boolean
-  options?: any[]
+  options?: ((...args: any) => string[] | Promise<string[]>) | string[] | any[]
 }
 
 type ConvertPropTypes<T> = T extends null
@@ -31,6 +31,8 @@ type ConvertPropTypes<T> = T extends null
   ? number
   : T extends { type: "boolean" } | "boolean"
   ? boolean
+  : T extends { type: "string[]" } | "string[]"
+  ? string[]
   : T extends { type: "$.interface.timer" } | "$.interface.timer"
   ? PropReturnDInterfaceTimer
   : T extends { type: "$.interface.http" } | "$.interface.http"
