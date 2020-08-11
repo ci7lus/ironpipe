@@ -7,7 +7,7 @@ import {
 } from "./pipedream"
 import { string2 } from "../types"
 
-type PropTypes = "string" | "number" | "boolean" | PipedreamPropTypes
+type PropTypes = "string" | "boolean" | PipedreamPropTypes
 
 type Prop<T> = PropOptions<T> | PropTypes | string2
 
@@ -27,8 +27,6 @@ type ConvertPropTypes<T> = T extends null
   ? null
   : T extends { type: "string" } | "string"
   ? string
-  : T extends { type: "number" } | "number"
-  ? number
   : T extends { type: "boolean" } | "boolean"
   ? boolean
   : T extends { type: "string[]" } | "string[]"

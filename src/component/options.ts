@@ -24,7 +24,10 @@ type ComponentInstance = {
 type ComponentThis<Props, Methods> = ThisType<
   {
     $props: Props
-    $emit: (data: ObjectLiteral, metadata?: ObjectLiteral) => void
+    $emit: (
+      data: ObjectLiteral,
+      metadata?: ObjectLiteral & { id: string } // metadata requires id
+    ) => void
   } & Props &
     Methods &
     ObjectLiteral

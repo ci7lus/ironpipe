@@ -2,10 +2,15 @@ import { ObjectLiteral, string2 } from "../types"
 
 // https://github.com/PipedreamHQ/pipedream/blob/master/COMPONENT-API.md
 
-export type ArgEventTypes = ArgEventBase | ArgEventInterval | ArgEventHttp
+export type ArgEventTypes =
+  | ArgEventBase
+  | ArgEventInterval
+  | ArgEventCron
+  | ArgEventHttp
 
 export type ArgEventBase = { timestamp: number }
 export type ArgEventInterval = ArgEventBase & { interval_seconds: number }
+export type ArgEventCron = ArgEventBase & { cron: string }
 export type ArgEventHttp = {
   method: "POST" | "GET" | string2
   path: string
