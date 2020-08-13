@@ -56,3 +56,11 @@ module.exports = defineComponent({
   },
 })
 ```
+
+#### Example Usage
+
+- [comic-meteor-feed.ts (http endpoint to delivery rss of comic-meteor)](https://gist.github.com/ci7lus/1345c318a4d98a6e9f6051d926930949)
+- [comic-meteor.ts (Subscribe to comic-meteor-feed.ts)](https://gist.github.com/ci7lus/b16c41183892b815321a8c903b2350c4)
+- [mangacross.ts (Get a new comic series update for mangacross)](https://gist.github.com/ci7lus/ffd9f586ddd231290c3d90c1598ee9b8)
+- [nicomanga.ts (Get a new comic series update for niconico-manga)](https://gist.github.com/ci7lus/ad23531f902ac32a572c935a183fc063)
+- [booth-search.ts (Get specified search criteria for booth.pm](https://gist.github.com/ci7lus/29efeac02148c2a68eaa4169cff5f924)
