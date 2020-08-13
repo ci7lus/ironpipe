@@ -26,7 +26,7 @@ type ComponentThis<Props, Methods> = ThisType<
     $props: Props
     $emit: (
       data: ObjectLiteral,
-      metadata?: ObjectLiteral & { id: string } // metadata requires id
+      metadata?: ObjectLiteral & { id: any } // metadata requires id
     ) => void
   } & Props &
     Methods &
