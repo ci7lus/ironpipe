@@ -1,1 +1,1 @@
-export { defineComponent } from "./component"
+export { defineComponent, defineAction } from "./component"

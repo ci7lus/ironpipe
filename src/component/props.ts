@@ -47,7 +47,7 @@ export type ExtractPropTypes<P> = P extends object
   ? { [K in keyof P]: PropOptionalCheck<P[K]> }
   : { [K in string]: any }
 
-export type ComponentPropsOptions<P = Record<string, unknown>> =
+export type InstancePropsOptions<P = Record<string, unknown>> =
   | {
       [K in keyof P]: Prop<P[K]> | null
     }

@@ -23,11 +23,12 @@
   "scripts": {
     "prebuild": "rm -rf lib",
     "build": "tsc -p tsconfig.build.json",
-    "lint": "prettier --check \"src/**/*.ts\""
+    "lint": "prettier --check \"src/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\""
   },
   "devDependencies": {
-    "prettier": "^2.0.5",
-    "typescript": "^3.9.7"
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.5"
   },
   "dependencies": {}
 }

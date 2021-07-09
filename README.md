@@ -15,7 +15,7 @@ yarn add -D ironpipe
 
 ### defineComponent
 
-`defineComponent` is a function for defining type-safe components.
+`defineComponent` is a function for defining type-safe component.
 
 ```ts
 import { defineComponent } from "ironpipe"
@@ -53,6 +53,36 @@ module.exports = defineComponent({
       headers: {},
       body: this.db.get<number>("random-value")?.toString() || this.url,
     })
+  },
+})
+```
+
+### defineAction
+
+`defineAction` is a function for defining type-safe action component.<br />
+Ref: [Quickstart: Action Development](https://pipedream.com/docs/components/quickstart/nodejs/actions/)
+
+```ts
+import { defineAction } from "ironpipe"
+
+module.exports = defineAction({
+  type: "action",
+  name: "example-action",
+  key: "example_action",
+  version: "0.0.1",
+  props: {
+    url: {
+      type: "string",
+      label: "something url",
+    },
+    target: {
+      type: "string",
+      label: "replace target string",
+      optional: true,
+    },
+  },
+  async run() {
+    return this.url.replace(this.target || "http", "https")
   },
 })
 ```
