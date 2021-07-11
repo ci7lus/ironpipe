@@ -13,14 +13,17 @@ type Prop<T> = PropOptions<T> | PropTypes | string2
 
 type PropTypesDefault = PropDefaultDInterfaceTimer
 
-type PropOptions<T = any> = {
+type PropOptions<T = unknown> = {
   type?: PropTypes | string2
   label?: string
   description?: string
-  default?: PropTypesDefault | { [key: string]: any } | string | null
-  propDefinition?: [any, string]
+  default?: PropTypesDefault | { [key: string]: unknown } | string | null
+  propDefinition?: [unknown, string]
   optional?: boolean
-  options?: ((...args: any) => string[] | Promise<string[]>) | string[] | any[]
+  options?:
+    | ((...args: unknown[]) => string[] | Promise<string[]>)
+    | string[]
+    | unknown[]
 }
 
 type ConvertPropTypes<T> = T extends null
@@ -37,7 +40,7 @@ type ConvertPropTypes<T> = T extends null
   ? PropReturnDInterfaceHttp
   : T extends { type: "$.service.db" } | "$.service.db"
   ? PropReturnDServiceDB
-  : any
+  : unknown
 
 type PropOptionalCheck<T> = T extends { optional: true }
   ? ConvertPropTypes<T> | undefined
@@ -45,7 +48,7 @@ type PropOptionalCheck<T> = T extends { optional: true }
 
 export type ExtractPropTypes<P> = P extends object
   ? { [K in keyof P]: PropOptionalCheck<P[K]> }
-  : { [K in string]: any }
+  : { [K in string]: unknown }
 
 export type InstancePropsOptions<P = Record<string, unknown>> =
   | {

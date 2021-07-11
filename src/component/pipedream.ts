@@ -17,7 +17,7 @@ export type ArgEventHttp = {
   query: ObjectLiteral
   headers: ObjectLiteral
   bodyRaw: string
-  body: any
+  body: unknown
 }
 
 export type PipedreamPropTypes =
@@ -36,16 +36,16 @@ export type PropDefaultDInterfaceTimer =
   | { cron: string }
 
 export type PropReturnDInterfaceHttp = {
-  respond(options: {
+  respond<T = unknown>(options: {
     status?: number
     headers?: ObjectLiteral
-    body?: any
-    [key: string]: any
+    body?: T
+    [key: string]: unknown
   }): void
   endpoint: string
 }
 
 export type PropReturnDServiceDB = {
-  get: <T = any>(key: string) => T | undefined
+  get: <T = unknown>(key: string) => T | undefined
   set: <T>(key: string, value: T) => void
 }
