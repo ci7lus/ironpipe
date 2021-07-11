@@ -94,3 +94,70 @@ module.exports = defineAction({
 - [mangacross.ts (Get a new comic series update for mangacross)](https://gist.github.com/ci7lus/ffd9f586ddd231290c3d90c1598ee9b8)
 - [nicomanga.ts (Get a new comic series update for niconico-manga)](https://gist.github.com/ci7lus/ad23531f902ac32a572c935a183fc063)
 - [booth-search.ts (Get specified search criteria for booth.pm](https://gist.github.com/ci7lus/29efeac02148c2a68eaa4169cff5f924)
+
+##### Example: Use twitter extension
+
+```ts
+import { defineComponent } from "ironpipe"
+const twitter = require("https://github.com/PipedreamHQ/pipedream/components/twitter/twitter.app.js")
+import { AxiosResponse, AxiosRequestConfig } from "axios"
+import { FullUser, Status } from "twitter-d"
+
+module.exports = defineComponent({
+  name: "tweet",
+  version: "0.0.1",
+  props: {
+    url: {
+      type: "string",
+      label: "something url",
+      optional: true,
+    },
+    timer: {
+      type: "$.interface.timer",
+      default: {
+        intervalSeconds: 60 * 15,
+      },
+    },
+    db: "$.service.db",
+    twitter,
+  },
+  methods: {
+    async random(n: number) {
+      return Math.random() * n
+    },
+  },
+  dedupe: "unique",
+  async run(): Promise<any> {
+    // this any to avoid unexplained break of this.methods type when `run` return something
+    const rand = this.random(100)
+    this.db.set("random-value", rand)
+    this.db.set("something-url", this.url)
+
+    const twit = this.twitter as TwitterAppJS
+
+    const r = await twit._makeRequest({
+      url: `https://api.twitter.com/1.1/statuses/update.json?status=${rand}`,
+      method: "POST",
+    })
+    return r.data
+  },
+})
+
+type TwitterAppJS = {
+  _makeRequest: (
+    opts: AxiosRequestConfig
+  ) => Promise<AxiosResponse<{ statuses: (Status & { text: string })[] }>>
+  verifyCredentials: () => Promise<FullUser>
+  search: (opts: {
+    q: string
+    since_id?: string | number
+    tweet_mode?: "extended"
+    count?: number
+    result_type?: "recent" | "polular" | "mixed"
+    lang?: string
+    locale?: string
+    geocode?: string
+    max_id?: string | number
+  }) => Promise<AxiosResponse<{ statuses: (Status & { text: string })[] }>>
+}
+```
