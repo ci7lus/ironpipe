@@ -24,6 +24,7 @@ export type PipedreamPropTypes =
   | "$.interface.timer"
   | "$.interface.http"
   | "$.service.db"
+  | "app"
 
 export type PropReturnDInterfaceTimer = {
   type: "$.interface.timer"

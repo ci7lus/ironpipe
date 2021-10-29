@@ -7,12 +7,19 @@ import {
 } from "./pipedream"
 import { string2 } from "../types"
 
-type PropTypes = "string" | "boolean" | PipedreamPropTypes
+type PropTypes =
+  | "string"
+  | "boolean"
+  | "object"
+  | "integer"
+  | "any"
+  | PipedreamPropTypes
 
 type Prop<T> = PropOptions<T> | PropTypes | string2
 
 type PropTypesDefault = PropDefaultDInterfaceTimer
 
+// https://pipedream.com/docs/components/api/#general
 type PropOptions<T = unknown> = {
   type?: PropTypes | string2
   label?: string
@@ -24,6 +31,9 @@ type PropOptions<T = unknown> = {
     | ((...args: unknown[]) => string[] | Promise<string[]>)
     | string[]
     | unknown[]
+  secret?: boolean
+  min?: number
+  max?: number
 }
 
 type ConvertPropTypes<T> = T extends null
@@ -32,8 +42,18 @@ type ConvertPropTypes<T> = T extends null
   ? string
   : T extends { type: "boolean" } | "boolean"
   ? boolean
+  : T extends { type: "object" } | "object"
+  ? object
+  : T extends { type: "integer" } | "integer"
+  ? number
+  : T extends { type: "any" } | "any"
+  ? any
   : T extends { type: "string[]" } | "string[]"
   ? string[]
+  : T extends { type: "number[]" } | "number[]"
+  ? number[]
+  : T extends { type: "object[]" } | "object[]"
+  ? object[]
   : T extends { type: "$.interface.timer" } | "$.interface.timer"
   ? PropReturnDInterfaceTimer
   : T extends { type: "$.interface.http" } | "$.interface.http"
