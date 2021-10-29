@@ -7,6 +7,7 @@ on:
     tags-ignore:
       - "**"
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,9 +23,26 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+          registry-url: "https://registry.npmjs.org"
       - name: Install
         run: |
           yarn
       - name: Build
         run: |
           yarn build
+      - name: Check version
+        id: check
+        uses: EndBug/version-check@v1
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: ${{ steps.check.outputs.changed == 'true' }}
+        with:
+          name: v${{ steps.check.outputs.version }}
+          tag_name: v${{ steps.check.outputs.version }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish
+        if: ${{ steps.check.outputs.changed == 'true' }}
+        run: yarn publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
