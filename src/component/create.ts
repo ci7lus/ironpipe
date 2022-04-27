@@ -1,9 +1,6 @@
-import {
-  ComponentInstance,
-  ComponentOptions,
-} from "./component";
-import { ActionOptions, ActionInstance } from "./action";
-import { ExtractPropTypes } from "./props";
+import { ComponentInstance, ComponentOptions } from "./component"
+import { ActionOptions, ActionInstance } from "./action"
+import { ExtractPropTypes } from "./props"
 
 export function createComponent<Comp extends ComponentOptions>(
   comp: Comp,
@@ -29,7 +26,7 @@ export function createComponent<Comp extends ComponentOptions>(
       props,
       comp.methods
     )
-  ) as ComponentInstance;
+  ) as ComponentInstance
 }
 
 export function createAction<Comp extends ActionOptions>(
@@ -55,5 +52,5 @@ export function createAction<Comp extends ActionOptions>(
       props,
       comp.methods
     )
-  ) as ActionInstance;
+  ) as ActionInstance
 }
