@@ -4,5 +4,6 @@
     "target": "es2017",
     "module": "commonjs",
     "declaration": true
-  }
+  },
+  "exclude": ["./src/__tests__"]
 }
