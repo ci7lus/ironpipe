@@ -1,12 +1,10 @@
-import { defineComponent } from "../src"
-import { createComponent } from "../src/component/create"
+import { defineComponent } from ".."
+import { createComponent } from "../component/create"
 
 const Component = defineComponent({
   name: "test",
   props: {
-    test_prop: {
-      type: "string",
-    },
+    test_prop: "string",
   },
   version: "0.0.1",
   methods: {
@@ -14,7 +12,7 @@ const Component = defineComponent({
       return this.test_prop
     },
   },
-  run() {
+  run(): string {
     return this.getHello()
   },
 })

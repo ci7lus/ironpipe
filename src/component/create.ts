@@ -1,20 +1,20 @@
-import { ComponentInstance, ComponentOptions } from "./component"
-import { ActionOptions, ActionInstance } from "./action"
+import { ComponentOptions } from "./component"
+import { ActionOptions } from "./action"
 import { ExtractPropTypes } from "./props"
 
-export function createComponent<Comp extends ComponentOptions>(
-  comp: Comp,
-  props: Readonly<ExtractPropTypes<Comp["props"]>>
-): ComponentInstance {
+export function createComponent<Component extends ComponentOptions>(
+  component: Component,
+  props: Readonly<ExtractPropTypes<Component["props"]>>
+): Component {
   return Object.create(
     Object.assign(
       {
-        run: comp.run,
-        name: comp.name,
-        description: comp.description,
-        type: comp.type,
-        version: comp.version,
-        dedupe: comp.dedupe,
+        run: component.run,
+        name: component.name,
+        description: component.description,
+        type: component.type,
+        version: component.version,
+        dedupe: component.dedupe,
         // TODO: hooks
         // hooks?: {
         //     activate: Function;
@@ -24,23 +24,23 @@ export function createComponent<Comp extends ComponentOptions>(
         // }
       },
       props,
-      comp.methods
+      component.methods
     )
-  ) as ComponentInstance
+  )
 }
 
-export function createAction<Comp extends ActionOptions>(
-  comp: Comp,
-  props: Readonly<ExtractPropTypes<Comp["props"]>>
-): ActionInstance {
+export function createAction<Action extends ActionOptions>(
+  action: Action,
+  props: Readonly<ExtractPropTypes<Action["props"]>>
+): Action {
   return Object.create(
     Object.assign(
       {
-        run: comp.run,
-        name: comp.name,
-        description: comp.description,
-        type: comp.type,
-        version: comp.version,
+        run: action.run,
+        name: action.name,
+        description: action.description,
+        type: action.type,
+        version: action.version,
         // TODO: hooks
         // hooks?: {
         //     activate: Function;
@@ -50,7 +50,7 @@ export function createAction<Comp extends ActionOptions>(
         // }
       },
       props,
-      comp.methods
+      action.methods
     )
-  ) as ActionInstance
+  )
 }
